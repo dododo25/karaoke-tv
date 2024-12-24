@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Karaoke</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <style>
+        .container {
+            width: 100vw;
+            height:100vh;
+            max-width:100%;
+            background:radial-gradient(#388E3C, #4CAF50);
+        }
+
+        .line {
+            font-size:6em;
+            font-weight:bold;
+            color:#FAFAFA;
+        }
+    </style>
+</head>
+<body>
+<div class="d-flex flex-column justify-content-center align-items-center container">
+    <p class="line">Ожидание новой игры</p>
+</div>
+</body>
+<script>
+    const ping = () => {
+        const xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", "/select/ping", true);
+        xmlHttp.onload = e => {
+            if (xmlHttp.status === 200 && xmlHttp.responseText * 1 === 0) {
+                window.location = '/play';
+            } else {
+                ping();
+            }
+        };
+        xmlHttp.onerror = e => console.error(xmlHttp.statusText);
+
+        xmlHttp.send(null);
+    };
+
+    ping();
+</script>
+</html>

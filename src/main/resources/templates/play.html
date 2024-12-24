@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title th:text="${label}"></title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <style>
+        .line {
+            font-size:96px;
+            font-weight:bold;
+            color:transparent;
+            background-clip:text!important;
+            z-index: 2;
+        }
+
+        #lines {
+            width: 100vw;
+        }
+
+        #lines-main {
+            z-index: 2;
+        }
+
+        #countdown {
+            font-size:28em;
+            font-weight:bold;
+            color:#FAFAFA;
+        }
+
+        @media screen and (min-width: 1280px) {
+            #lines-main {
+                width: 1600px;
+                transform: scale(0.8);
+            }
+
+            #countdown {
+                transform: scale(0.8);
+            }
+        }
+
+        @media screen and (min-width: 1920px) {
+            #lines-main {
+                transform: none;
+            }
+
+            #countdown {
+                transform: none;
+            }
+        }
+
+        @media screen and (min-width: 2520px) {
+            #lines-main {
+                transform: scale(1.5);
+                max-width: 1700px;
+            }
+
+            #countdown {
+                transform: scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column justify-content-center align-items-center" style="width:100vw;height:100vh;overflow:hidden">
+<audio id="audio">
+    <source th:src="${data.src}" type="audio/mpeg">
+</audio>
+<div id="background" class="position-absolute" style="width:100vw;height:100vh;z-index:0">
+</div>
+<div style="z-index:1">
+    <div class="m-3">
+        <div id="play">
+            <svg width="173.20" height="200" viewBox="0 0 86.6 100">
+                <path d="M 0 0 l 86.6 50, -86.6 50 z" fill="#FAFAFA" />
+            </svg>
+        </div>
+        <div id="lines" class="collapse">
+            <div class="position-absolute" style="width:100vw;height:70vh;z-index:1;background-color: #2121213F;"></div>
+            <div id="lines-main">
+                <p class="text-center">
+                    <span id="first-line" class="line position-relative p-1"></span>
+                </p>
+                <p class="text-center">
+                    <span id="second-line" class="line position-relative p-1"></span>
+                </p>
+            </div>
+        </div>
+        <p id="countdown" class="collapse"></p>
+    </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        const data = /*[[${data}]]*/ undefined;
+    /*]]>*/
+</script>
+<script>
+    const backgroundElem = document.getElementById('background');
+    const linesElem      = document.getElementById('lines');
+    const countdownElem  = document.getElementById('countdown');
+    const firstLineElem  = document.getElementById('first-line');
+    const secondLineElem = document.getElementById('second-line');
+    const audioElem      = document.getElementById('audio');
+    const playElem       = document.getElementById('play');
+
+    const text = data.text;
+
+    const commands = [];
+
+    for (let c of data.commands) {
+        const m1 = c.match(/\{(\d+);(\d+(\.\d+)?)\}speed=(\d+(\.\d+)?)/);
+        const m2 = c.match(/\{(\d+);(\d+(\.\d+)?)\}pause=(\d+(\.\d+)?)/);
+        const m3 = c.match(/\{(\d+);(\d+(\.\d+)?)\}countdown=(\d+(\.\d+)?)/);
+        const m4 = c.match(/\{(\d+);(\d+(\.\d+)?)\}show/);
+        const m5 = c.match(/\{(\d+);(\d+(\.\d+)?)\}hide/);
+
+        if (m1) {
+            const line  = m1[1] * 1;
+            const pos   = m1[2] * 1;
+            const value = m1[4] * 1;
+
+            commands.push((l, p) => {
+                if (line === l && p >= pos) {
+                    return {"speed": value};
+                }
+
+                return false;
+            });
+        } else if (m2) {
+            const line  = m2[1] * 1;
+            const pos   = m2[2] * 1;
+            const value = m2[4] * 1;
+
+            commands.push((l, p) => {
+                if (line === l && p >= pos) {
+                    return {"pause": value * 1000};
+                }
+
+                return false;
+            });
+        } else if (m3) {
+            const line  = m3[1] * 1;
+            const pos   = m3[2] * 1;
+            const value = m3[4] * 1;
+
+            commands.push((l, p) => {
+                if (line === l && p >= pos) {
+                    return {"countdown": value};
+                }
+
+                return false;
+            });
+        } else if (m4) {
+            const line  = m4[1] * 1;
+            const pos   = m4[2] * 1;
+
+            commands.push((l, p) => {
+                if (line === l && p >= pos) {
+                    return {"show": true};
+                }
+
+                return false;
+            });
+        } else if (m5) {
+            const line  = m5[1] * 1;
+            const pos   = m5[2] * 1;
+
+            commands.push((l, p) => {
+                if (line === l && p >= pos) {
+                    return {"hide": true};
+                }
+
+                return false;
+            });
+        }
+    }
+
+    const max = 35;
+    let backgroundIndex = Math.floor(Math.random() * max) + 1;
+    let newElem1 = document.createElement('div');
+    let newElem2 = document.createElement('div');
+
+    newElem1.className = 'w-100 h-100 position-absolute';
+    newElem1.style['z-index'] = 1;
+
+    newElem2.className = 'w-100 h-100';
+    newElem2.style['background'] = 'url("/images/background_' + backgroundIndex + '.jpg") no-repeat center center fixed';
+    newElem2.style['background-size'] = 'cover';
+
+    newElem1.appendChild(newElem2);;
+    backgroundElem.appendChild(newElem1);
+
+    playElem.addEventListener('click', async () => {
+        playElem.className = 'collapse';
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        audioElem.play();
+
+        let commandIndex = 0;
+
+        let line = 0;
+        let p1 = 0;
+        let p2 = 0;
+        let speed = 1;
+        let pauseInit = 0;
+        let pause = 0;
+        let show = false;
+        let hide = false;
+        let keepShowing = false;
+        let countdownStarted = false;
+        let countdown = -1;
+        let secondLine = false;
+
+        let w1;
+        let w2;
+        let w3;
+
+        let interval;
+        let interval2;
+
+        interval = await setInterval(() => {
+            if (countdown >= 0 && (pauseInit - pause) % 1000 == 0) {
+                if (countdown > 0) {
+                    countdownElem.innerHTML = countdown;
+                } else {
+                    countdownElem.className = 'collapse';
+                }
+
+                countdown--;
+            }
+
+            if (pause > 0) {
+                pause -= 10;
+                return;
+            }
+
+            const params = commandIndex == commands.length ? false : commands[commandIndex](line, secondLine ? p2 : p1);
+
+            if (params) {
+                if ('speed' in params) {
+                    speed = params['speed'];
+                } else if ('pause' in params) {
+                    pause = params['pause'];
+                } else if ('countdown' in params) {
+                    pause            = params['countdown'] * 1000 + 500;
+                    pauseInit        = params['countdown'] * 1000 + 500;
+                    countdown        = params['countdown'];
+                    countdownStarted = true;
+                } else if ('show' in params) {
+                    show = params['show'];
+                    keepShowing = true;
+                } else if ('hide' in params) {
+                    hide = params['hide'];
+                    keepShowing = false;
+                }
+
+                commandIndex++;
+            }
+
+            if (line >= text.length && !params) {
+                clearInterval(interval);
+                clearInterval(interval2);
+
+                audioElem.pause();
+                audioElem.currentTime = 0;
+
+                return;
+            }
+
+            if (countdownStarted) {
+                countdownStarted = false;
+
+                countdownElem.className = '';
+                countdownElem.innerHTML = '';
+
+                return;
+            }
+
+            if (pause > 0) {
+                return;
+            }
+
+            if (show) {
+                show = false;
+                secondLine = false;
+                p1 = 0;
+                p2 = 0;
+
+                linesElem.className = 'd-flex flex-column justify-content-center align-items-center';
+
+                firstLineElem.innerHTML  = text[line];
+                secondLineElem.innerHTML = text[line + 1];
+
+                firstLineElem.style  = 'white-space:nowrap';
+                secondLineElem.style = 'white-space:nowrap';
+
+                w1 = firstLineElem.offsetWidth * 1;
+                w2 = secondLineElem.offsetWidth * 1;
+                w3 = w1;
+
+                console.log(line, w1);
+                console.log(line + 1, w2);
+
+                firstLineElem.style  = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p1 + 'px, rgb(255, 255, 255) 0);';
+                secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
+
+                return;
+            }
+
+            if (hide) {
+                hide = false;
+                keepShowing = false;
+                linesElem.className = 'collapse';
+
+                return;
+            }
+
+            if (keepShowing) {
+                if (p1 >= w3) {
+                    secondLine = true;
+                    line++;
+
+                    if (line >= text.length) {
+                        return;
+                    }
+
+                    p2 = 0;
+                    w3 = w1 + w2;
+                } else if (p2 >= w2) {
+                    secondLine = false;
+                    p1 = 0;
+                    p2 = 0;
+
+                    line++;
+
+                    if (line >= text.length) {
+                        return;
+                    }
+
+                    if (line < text.length) {
+                        firstLineElem.innerHTML = text[line];
+                    }
+
+                    if (line < text.length - 1) {
+                        secondLineElem.innerHTML = text[line + 1];
+                    }
+
+                    firstLineElem.style  = 'white-space:nowrap';
+                    secondLineElem.style = 'white-space:nowrap';
+
+                    w1 = firstLineElem.offsetWidth * 1;
+                    w2 = secondLineElem.offsetWidth * 1;
+                    w3 = w1;
+
+                    console.log(line, w1);
+                    console.log(line + 1, w2);
+
+                    firstLineElem.style  = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p1 + 'px, rgb(255, 255, 255) 0);';
+                    secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
+                } else {
+                    firstLineElem.style  = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p1 + 'px, rgb(255, 255, 255) 0);';
+                    secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
+
+                    if (secondLine) {
+                        p2 += speed;
+                    } else {
+                        p1 += speed;
+                    }
+                }
+            }
+        }, 10);
+
+        interval2 = setInterval(async () => {
+            backgroundIndex = Math.floor(Math.random() * max) + 1;
+
+            let opacity = 1;
+
+            newElem1 = document.createElement('div');
+            newElem2 = document.createElement('div');
+
+            newElem1.className = 'w-100 h-100 position-absolute';
+            newElem1.style['z-index'] = 0;
+
+            newElem2.className = 'w-100 h-100';
+            newElem2.style['background'] = 'url("/images/background_' + backgroundIndex + '.jpg") no-repeat center center fixed';
+            newElem2.style['background-size'] = 'cover';
+
+            newElem1.appendChild(newElem2);
+            backgroundElem.appendChild(newElem1);
+
+            await new Promise(resolve => {
+                const interval3 = setInterval(() => {
+                    if (opacity <= 0) {
+                        newElem1.style['z-index'] = 1;
+
+                        backgroundElem.removeChild(backgroundElem.firstElementChild);
+                        clearInterval(interval3);
+
+                        return;
+                    }
+
+                    backgroundElem.firstElementChild.style['opacity'] = opacity;
+                    opacity -= 0.01;
+                }, 10);
+            });
+        }, 60000);
+    });
+
+    const ping = () => {
+        const xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", "/play/ping", true);
+        xmlHttp.timeout = 86400000;
+        xmlHttp.onload = e => {
+            if (xmlHttp.status === 200) {
+                const r = xmlHttp.responseText;
+
+                if (r === 'select') {
+                    window.location = '/select';
+                    return;
+                } else if (r === 'answers') {
+                    window.location = '/answers';
+                    return;
+                } else if (r === 'play') {
+                    window.location = '/play';
+                    return;
+                }
+            }
+            
+            ping();
+        };
+        xmlHttp.onerror = e => console.error(xmlHttp.statusText);
+
+        xmlHttp.send(null);
+    };
+
+    ping();
+</script>
+</body>
+</html>

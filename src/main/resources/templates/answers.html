@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Karaoke</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <style>
+        .line {
+            font-size:2.4em;
+            line-height:1em;
+            font-weight:bold;
+            color:#FAFAFA;
+            text-shadow: 1px 1px #757575, 1px -1px #757575, -1px -1px #757575, -1px 1px #757575;
+        }
+
+        .right {
+            color: #00E676;
+            text-decoration: underline;
+            text-shadow: 1px 1px #1B5E20, 1px -1px #1B5E20, -1px -1px #1B5E20, -1px 1px #1B5E20;
+        }
+
+        .wrong {
+            color: #FF1744;
+            text-decoration: underline;
+            text-shadow: 1px 1px #B71C1C, 1px -1px #B71C1C, -1px -1px #B71C1C, -1px 1px #B71C1C;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column w-100 justify-content-center align-items-center" th:style="'height:100vh;background:url(' + @{/images/background_25.jpg} + ') no-repeat center center fixed;background-size:cover'">
+<div id="lines"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        const data = /*[[${data}]]*/ undefined;
+        const answers = /*[[${answers}]]*/ undefined;
+    /*]]>*/
+</script>
+<script>
+    const splitByRegex = (regex, line) => {
+        const result = [];
+
+        let i = 0;
+        let i0 = 0;
+        
+        while (i < line.length) {
+            let j = i + 1;
+
+            while (j < line.length + 1) {
+                const match = line.substring(i, j).match(regex);
+
+                if (match) {
+                    result.push(line.substring(i, i + match.index).trim());
+                    result.push(line.substring(i + match.index, j).trim());
+
+                    i0 = j + 1;
+
+                    break;
+                }
+
+                
+                j++;
+            }
+
+            i = j + 1;
+        }
+
+        if (i0 < line.length) {
+            result.push(line.substring(i0, line.length));
+        }
+
+        return result;
+    };
+
+    const linesElem = document.getElementById('lines');
+
+    for (let i = 0; i < data.blocks.length; i++) {
+        const elem = document.createElement('div');
+        elem.className = 'd-flex flex-column justify-content-center align-items-center';
+
+        if (i < data.blocks.length - 1) {
+            elem.className += ' mb-5';
+        }
+
+        for (let j = 0; j < data.blocks[i].length; j++) {
+            const parts = splitByRegex(/\{#\d+\}.*\{#\}/, data.blocks[i][j]);
+
+            const lineElem = document.createElement('p');
+            lineElem.className = 'line';
+
+            for (let k = 0; k < parts.length; k++) {
+                const part = parts[k];
+                const m1 = part.match(/\{#(\d+)\}(.*)\{#\}/);
+
+                if (m1) {
+                    lineElem.innerHTML += '<span class="' + (answers[m1[1] * 1] === 'true' ? 'right' : 'wrong') + '">' + m1[2] +  "</span>";
+                } else {
+                    if (k > 0 && part[0] !== ' ') {
+                        lineElem.innerHTML += '&nbsp;';
+                    }
+
+                    lineElem.innerHTML += part;
+
+                    if (k < parts.length - 1 && part[part.length - 1] !== ' ') {
+                        lineElem.innerHTML += '&nbsp;';
+                    }
+                }
+            }
+
+            lineElem.innerHTML = lineElem.innerHTML.trim();
+            elem.appendChild(lineElem);
+        }
+
+        linesElem.appendChild(elem);
+    }
+
+    const ping = () => {
+        const xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", "/answers/ping", true);
+        xmlHttp.onload = e => {
+            if (xmlHttp.status === 200 && xmlHttp.responseText * 1 === 0) {
+                window.location = '/select';
+            } else {
+                ping();
+            }
+        };
+        xmlHttp.onerror = e => console.error(xmlHttp.statusText);
+
+        xmlHttp.send(null);
+    };
+
+    ping();
+</script>
+</body>
+</html>
