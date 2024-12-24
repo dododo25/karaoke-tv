@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Bean;
 import java.security.NoSuchAlgorithmException;
 
 @SpringBootApplication
-public class KaraokeTvApplication {
+public class KaraokeTVApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KaraokeTvApplication.class, args);
+		SpringApplication.run(KaraokeTVApplication.class, args);
 	}
 
 	@Bean
