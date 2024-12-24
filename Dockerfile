@@ -2,8 +2,7 @@
 # Build stage
 #
 FROM openjdk:17-jdk-slim AS build
-RUN echo ls -la .
-RUN ./mvnw -f ./pom.xml clean package
+RUN ls -la . && ./mvnw -f ./pom.xml clean package
 
 #
 # Package stage
