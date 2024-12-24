@@ -1,13 +1,14 @@
 #
 # Build stage
 #
-FROM eclipse-temurin:17-jdk-jammy AS build
+FROM openjdk:17-jdk-slim AS build
+RUN echo ls -la
 RUN ./mvnw -f ./pom.xml clean package
 
 #
 # Package stage
 #
-FROM eclipse-temurin:17-jre-jammy
+FROM openjdk:17-jdk-slim
 ARG JAR_FILE=./target/*.jar
 COPY --from=build $JAR_FILE /app/runner.jar
 EXPOSE 8080
