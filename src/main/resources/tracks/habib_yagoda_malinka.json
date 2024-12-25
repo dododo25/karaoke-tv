@@ -4,7 +4,7 @@
   "artist": "Хабиб",
   "modes": {
     "karaoke": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/habib_yagoda_malinka.mp3",
+      "src": "/music/karaoke/habib_yagoda_malinka.mp3",
       "text": [
         "Ягода Малинка, оп-оп-оп",
         "Крутит головой, залетает в топ",
@@ -132,7 +132,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/habib_yagoda_malinka.mp3",
+      "src": "/music/fill_gaps/habib_yagoda_malinka.mp3",
       "text": [
         "Ягода Малинка, оп-оп-оп",
         "Крутит головой, залетает в топ",

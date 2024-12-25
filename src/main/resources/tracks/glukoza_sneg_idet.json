@@ -4,7 +4,7 @@
   "artist": "Глюк'oZa",
   "modes": {
     "karaoke": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/glukoza_sneg_idet.mp3",
+      "src": "/music/karaoke/glukoza_sneg_idet.mp3",
       "text": [
         "Такси, ну как котята, мурлыкали у ног",
         "А я в мобильном слышу — длинный гудок",
@@ -138,7 +138,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/glukoza_sneg_idet.mp3",
+      "src": "/music/fill_gaps/glukoza_sneg_idet.mp3",
       "text": [
         "Такси, ну как котята, ________ у ног",
         "А я в мобильном слышу — длинный гудок",

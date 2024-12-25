@@ -4,7 +4,7 @@
   "artist": "Стекловата",
   "modes": {
     "karaoke": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/steklovata_novy_god.mp3",
+      "src": "/music/karaoke/steklovata_novy_god.mp3",
       "text": [
         "В час когда зажигаются свечи",
         "В каждом доме и в каждом окне",
@@ -101,7 +101,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/steklovata_novy_god.mp3",
+      "src": "/music/fill_gaps/steklovata_novy_god.mp3",
       "text": [
         "В час когда зажигаются свечи",
         "В каждом доме и в каждом окне",

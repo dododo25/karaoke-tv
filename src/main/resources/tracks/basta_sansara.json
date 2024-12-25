@@ -4,7 +4,7 @@
   "artist": "Баста",
   "modes": {
     "karaoke": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/basta_sansara.mp3",
+      "src": "/music/karaoke/basta_sansara.mp3",
       "text": [
         "Делай вопреки, делай от руки",
         "Мир переверни, небо опрокинь",
@@ -141,7 +141,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/basta_sansara.mp3",
+      "src": "/music/fill_gaps/basta_sansara.mp3",
       "text": [
         "Делай вопреки, делай от руки",
         "Мир переверни, ____ опрокинь",

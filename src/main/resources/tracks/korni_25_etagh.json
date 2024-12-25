@@ -4,7 +4,7 @@
   "artist": "Корни",
   "modes": {
     "karaoke": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/korni_25_etagh.mp3",
+      "src": "/music/karaoke/korni_25_etagh.mp3",
       "text": [
         "Привет тебе мой Третий Рим",
         "Твой одинокий пилигрим",
@@ -117,7 +117,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/tarkan_simarik.mp3",
+      "src": "/music/fill_gaps/tarkan_simarik.mp3",
       "text": [
         "Такмис колуна элин адамини",
         "Бени орта еримден чатлатийор",
