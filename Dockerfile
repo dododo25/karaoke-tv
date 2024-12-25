@@ -7,7 +7,7 @@ COPY pom.xml .
 COPY mvnw .
 COPY .mvn ./.mvn
 COPY src ./src
-RUN ls -la . && ./mvnw -f ./pom.xml clean package
+RUN chmod +x ./mvnw && ./mvnw -f ./pom.xml clean package
 
 #
 # Package stage
