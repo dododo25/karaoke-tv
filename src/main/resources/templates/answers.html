@@ -93,7 +93,7 @@
                 const m1 = part.match(/\{#(\d+)\}(.*)\{#\}/);
 
                 if (m1) {
-                    lineElem.innerHTML += '<span class="' + (answers[m1[1] * 1] === 'true' ? 'right' : 'wrong') + '">' + m1[2] +  "</span>";
+                    lineElem.innerHTML += '<span class="' + (answers[m1[1] * 1 - 1] === 'true' ? 'right' : 'wrong') + '">' + m1[2] +  "</span>";
                 } else {
                     if (k > 0 && part[0] !== ' ') {
                         lineElem.innerHTML += '&nbsp;';
