@@ -4,7 +4,7 @@
   "artist": "Андрей Губин",
   "modes": {
     "karaoke": {
-      "src": "/music/karaoke/gubin_zima_kholoda.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/gubin_zima_kholoda.mp3",
       "text": [
         "Зима-холода, одинокие дома",
         "Моря, города — всё как будто изо льда",
@@ -135,7 +135,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "/music/fill_gaps/gubin_zima_kholoda.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/gubin_zima_kholoda.mp3",
       "text": [
         "Зима-холода, одинокие дома",
         "Моря, города — всё как будто изо льда",

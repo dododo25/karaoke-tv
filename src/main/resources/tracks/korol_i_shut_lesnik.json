@@ -4,7 +4,7 @@
   "artist": "Король и Шут",
   "modes": {
     "karaoke": {
-      "src": "/music/karaoke/korol_i_shut_lesnik.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/korol_i_shut_lesnik.mp3",
       "text": [
         "Замученный дорогой я выбился из сил",
         "И в доме лесника я ночлега попросил",
@@ -123,7 +123,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "/music/fill_gaps/korol_i_shut_lesnik.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/korol_i_shut_lesnik.mp3",
       "text": [
         "Замученный дорогой я выбился из сил",
         "И в доме лесника я ночлега попросил",

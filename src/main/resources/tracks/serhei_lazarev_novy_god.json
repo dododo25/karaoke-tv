@@ -4,7 +4,7 @@
   "artist": "Сергей Лазарев и Влад Топалов",
   "modes": {
     "karaoke": {
-      "src": "/music/karaoke/serhei_lazarev_novy_god.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/serhei_lazarev_novy_god.mp3",
       "text": [
         "Снова, как в детстве,",
         "В окно смотрю я, как снег летает",
@@ -167,7 +167,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "/music/fill_gaps/serhei_lazarev_novy_god.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/serhei_lazarev_novy_god.mp3",
       "text": [
         "Снова, как в детстве,",
         "в ___ смотрю я, как снег летает",

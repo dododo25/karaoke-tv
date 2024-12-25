@@ -4,7 +4,7 @@
   "artist": "Tarkan",
   "modes": {
     "karaoke": {
-      "src": "/music/karaoke/tarkan_simarik.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/karaoke/tarkan_simarik.mp3",
       "text": [
         "Такмис колуна элин адамини",
         "Бени орта еримден чатлатийор",
@@ -137,7 +137,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "/music/fill_gaps/tarkan_simarik.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/tarkan_simarik.mp3",
       "text": [
         "Такмис колуна элин адамини",
         "Бени орта еримден чатлатийор",

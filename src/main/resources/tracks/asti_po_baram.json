@@ -129,7 +129,7 @@
       ]
     },
     "fill_gaps": {
-      "src": "/music/fill_gaps/asti_po_baram.mp3",
+      "src": "https://storage.cloud.google.com/karaoke-tv-bucket/music/fill_gaps/asti_po_baram.mp3",
       "text": [
         "Ты ночной кошмар, что растаял по утру",
         "Я по-прежнему красива, хоть казалось, что умру",
