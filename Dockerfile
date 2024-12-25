@@ -14,6 +14,7 @@ RUN chmod +x ./mvnw && ./mvnw -f ./pom.xml clean package
 #
 FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /app/target/karaoke-tv-0.0.1.jar .
+COPY --from=build ./app/target/karaoke-tv-0.0.1.jar .
 EXPOSE 8080
-ENTRYPOINT ["java", "-Dserver.port=8080", "-jar", "/app/target/karaoke-tv-0.0.1.jar"]
+RUN chmod +x ./app/target/karaoke-tv-0.0.1.jar
+ENTRYPOINT ["java", "-jar", "./app/target/karaoke-tv-0.0.1.jar"]
