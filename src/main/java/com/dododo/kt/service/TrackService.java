@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -31,9 +32,9 @@ public class TrackService {
         TypeReference<Track> typeReference = new TypeReference<>() {};
 
         try (Stream<Path> paths = Files.list(Paths.get(TrackService.class.getResource("/tracks").toURI()))) {
-            paths.forEach(path -> {
-                try {
-                    Track track = mapper.readValue(path.toFile(), typeReference);
+            paths.collect(Collectors.toUnmodifiableList()).forEach(path -> {
+                try (Stream<String> lines = Files.lines(path)) {
+                    Track track = mapper.readValue(lines.collect(Collectors.joining()), typeReference);
                     tracks.put(track.getId(), track);
                 } catch (IOException  e) {
                     LOGGER.error(e.getMessage(), e);
