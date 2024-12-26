@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class TokensHolder {
 
+    private static final String SALT = "-$alTe4";
+
     public static final HexFormat FORMAT = HexFormat.of();
 
     private final Map<String, String> tokenMap;
@@ -20,7 +22,7 @@ public class TokensHolder {
     }
 
     public String generateAndSave(String code) {
-        String generated = prepareHex(digest.digest((code + "-salted").getBytes()));
+        String generated = prepareHex(digest.digest((code + SALT).getBytes()));
         tokenMap.put(code, generated);
         return generated;
     }
