@@ -20,7 +20,7 @@ import java.util.stream.IntStream;
 @AllArgsConstructor
 public class IndexController {
 
-    private static final Random RANDOM = new Random();
+    private static final Random RANDOM = new Random(1);
 
     private final SessionsHolder sessionsHolder;
 
