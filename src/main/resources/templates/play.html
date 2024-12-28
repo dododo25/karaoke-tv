@@ -384,9 +384,9 @@
                     secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
 
                     if (secondLine) {
-                        p2 += speed;
+                        p2 += speed / modifier;
                     } else {
-                        p1 += speed;
+                        p1 += speed / modifier;
                     }
                 }
             }
