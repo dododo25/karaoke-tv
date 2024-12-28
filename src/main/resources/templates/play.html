@@ -22,7 +22,6 @@
         }
 
         .line {
-            font-family: "Segoe UI", sans-serif;
             font-size:96px;
             font-weight:bold;
             color:transparent;
@@ -227,22 +226,12 @@
         let countdown = -1;
         let secondLine = false;
 
-        console.log(navigator.userAgent, navigator.userAgent.match(/X\d{1,2}|Android/))
-
-        if (navigator.userAgent.match(/X\d{1,2}|Android/)) {
-            linesElem.style = 'letter-spacing: 2px';
-        }
-
         let w1;
         let w2;
         let w3;
 
         let interval;
         let interval2;
-
-        console.log('dpr', window.devicePixelRatio);
-        console.log('dpr', window.devicePixelRatio % 1);
-        console.log('dpr', 1 - (window.devicePixelRatio % 1));
 
         interval = await setInterval(() => {
             if (countdown >= 0 && (pauseInit - pause) % 1000 == 0) {
