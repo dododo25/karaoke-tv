@@ -223,10 +223,8 @@
         let countdown = -1;
         let secondLine = false;
 
-        let modifier = 1.0;
-
-        if (navigator.userAgent.match(/X\d{1,2}/) || navigator.userAgent.includes('Android')) {
-            modifier = 1.06;
+        if (navigator.userAgent.match(/X\d{1,2}/) || navigator.userAgent.match(/Android/)) {
+            console.log(navigator.userAgent);
         }
 
         let w1;
@@ -238,7 +236,6 @@
 
         window.devicePixelRatio = 2;
         console.log('dpr', window.devicePixelRatio);
-        console.log('modifier', modifier);
 
         interval = await setInterval(() => {
             if (countdown >= 0 && (pauseInit - pause) % 1000 == 0) {
@@ -256,7 +253,7 @@
                 return;
             }
 
-            const params = commandIndex == commands.length ? false : commands[commandIndex](line, (secondLine ? p2 : p1) * modifier);
+            const params = commandIndex == commands.length ? false : commands[commandIndex](line, secondLine ? p2 : p1);
 
             if (params) {
                 if ('speed' in params) {
@@ -279,7 +276,7 @@
                 commandIndex++;
             }
 
-            if (line >= text.length * modifier && !params) {
+            if (line >= text.length && !params) {
                 clearInterval(interval);
                 clearInterval(interval2);
 
@@ -384,9 +381,9 @@
                     secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
 
                     if (secondLine) {
-                        p2 += speed / modifier;
+                        p2 += speed;
                     } else {
-                        p1 += speed / modifier;
+                        p1 += speed;
                     }
                 }
             }
