@@ -256,7 +256,7 @@
                 return;
             }
 
-            const params = commandIndex == commands.length ? false : commands[commandIndex](line, secondLine ? p2 * modifier : p1 * modifier);
+            const params = commandIndex == commands.length ? false : commands[commandIndex](line, (secondLine ? p2 : p1) * modifier);
 
             if (params) {
                 if ('speed' in params) {
@@ -279,7 +279,7 @@
                 commandIndex++;
             }
 
-            if (line >= text.length && !params) {
+            if (line >= text.length * modifier && !params) {
                 clearInterval(interval);
                 clearInterval(interval2);
 
@@ -316,8 +316,8 @@
                 firstLineElem.style  = 'white-space:nowrap';
                 secondLineElem.style = 'white-space:nowrap';
 
-                w1 = firstLineElem.offsetWidth * modifier;
-                w2 = secondLineElem.offsetWidth * modifier;
+                w1 = firstLineElem.offsetWidth;
+                w2 = secondLineElem.offsetWidth;
                 w3 = w1;
 
                 firstLineElem.style  = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p1 + 'px, rgb(255, 255, 255) 0);';
@@ -370,8 +370,8 @@
                     firstLineElem.style  = 'white-space:nowrap';
                     secondLineElem.style = 'white-space:nowrap';
 
-                    w1 = firstLineElem.offsetWidth * modifier;
-                    w2 = secondLineElem.offsetWidth * modifier;
+                    w1 = firstLineElem.offsetWidth;
+                    w2 = secondLineElem.offsetWidth;
                     w3 = w1;
 
                     console.log(line, w1);
