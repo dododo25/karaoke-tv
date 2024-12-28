@@ -6,7 +6,7 @@
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         .line {
             font-size:96px;
@@ -312,8 +312,8 @@
                 firstLineElem.style  = 'white-space:nowrap';
                 secondLineElem.style = 'white-space:nowrap';
 
-                w1 = firstLineElem.offsetWidth * modifier;
-                w2 = secondLineElem.offsetWidth * modifier;
+                w1 = firstLineElem.offsetWidth * 1;
+                w2 = secondLineElem.offsetWidth * 1;
                 w3 = w1;
 
                 firstLineElem.style  = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) 0px, rgb(255, 255, 255) 0);';
