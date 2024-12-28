@@ -230,6 +230,7 @@
         let interval;
         let interval2;
 
+        window.devicePixelRatio = 2;
         console.log('dpr', window.devicePixelRatio);
 
         interval = await setInterval(() => {
@@ -308,8 +309,8 @@
                 firstLineElem.style  = 'white-space:nowrap';
                 secondLineElem.style = 'white-space:nowrap';
 
-                w1 = firstLineElem.offsetWidth * 1;
-                w2 = secondLineElem.offsetWidth * 1;
+                w1 = firstLineElem.offsetWidth;
+                w2 = secondLineElem.offsetWidth;
                 w3 = w1;
 
                 firstLineElem.style  = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p1 + 'px, rgb(255, 255, 255) 0);';
@@ -376,9 +377,9 @@
                     secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
 
                     if (secondLine) {
-                        p2 += speed * window.devicePixelRatio / 2;
+                        p2 += speed;
                     } else {
-                        p1 += speed * window.devicePixelRatio / 2;
+                        p1 += speed;
                     }
                 }
             }
