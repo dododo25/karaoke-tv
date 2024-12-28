@@ -227,10 +227,10 @@
 
         console.log(navigator.userAgent);
 
-        // Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
+        // Android - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
         // PC - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
 
-        if (navigator.userAgent.includes('Chrome') || navigator.userAgent.includes('Android')) {
+        if (navigator.userAgent.match(/X\d{1,2}/) || navigator.userAgent.includes('Android')) {
             modifier = 1.06;
         }
 
