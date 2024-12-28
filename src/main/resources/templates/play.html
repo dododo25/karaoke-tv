@@ -227,7 +227,9 @@
         let countdown = -1;
         let secondLine = false;
 
-        if (navigator.userAgent.match(/X\d{1,2}/) || navigator.userAgent.match(/Android/)) {
+        console.log(navigator.userAgent, navigator.userAgent.match(/X\d{1,2}|Android/))
+
+        if (navigator.userAgent.match(/X\d{1,2}|Android/)) {
             linesElem.style = 'letter-spacing: 2px';
         }
 
