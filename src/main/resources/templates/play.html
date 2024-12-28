@@ -230,6 +230,8 @@
         let interval;
         let interval2;
 
+        console.log('dpr', window.devicePixelRatio);
+
         interval = await setInterval(() => {
             if (countdown >= 0 && (pauseInit - pause) % 1000 == 0) {
                 if (countdown > 0) {
@@ -374,9 +376,9 @@
                     secondLineElem.style = 'background:linear-gradient(90deg, rgb(0, 200, 83) 0, rgb(0, 200, 83) ' + p2 + 'px, rgb(255, 255, 255) 0);';
 
                     if (secondLine) {
-                        p2 += speed;
+                        p2 += speed * window.devicePixelRatio / 2;
                     } else {
-                        p1 += speed;
+                        p1 += speed * window.devicePixelRatio / 2;
                     }
                 }
             }
