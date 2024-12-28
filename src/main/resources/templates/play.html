@@ -225,11 +225,6 @@
 
         let modifier = 1.0;
 
-        console.log(navigator.userAgent);
-
-        // Android - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-        // PC - Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36
-
         if (navigator.userAgent.match(/X\d{1,2}/) || navigator.userAgent.includes('Android')) {
             modifier = 1.06;
         }
@@ -261,7 +256,7 @@
                 return;
             }
 
-            const params = commandIndex == commands.length ? false : commands[commandIndex](line, secondLine ? p2 : p1);
+            const params = commandIndex == commands.length ? false : commands[commandIndex](line, secondLine ? p2 * modifier : p1 * modifier);
 
             if (params) {
                 if ('speed' in params) {
