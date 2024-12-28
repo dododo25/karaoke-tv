@@ -214,8 +214,6 @@
         let p1 = 0;
         let p2 = 0;
         let speed = 1;
-        //let modifier = 0.071 * window.devicePixelRatio + 0.86;
-        let modifier = 1;
         let pauseInit = 0;
         let pause = 0;
         let show = false;
@@ -224,6 +222,12 @@
         let countdownStarted = false;
         let countdown = -1;
         let secondLine = false;
+
+        let modifier = 1.0;
+
+        if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+            modifier = 1.06;
+        }
 
         let w1;
         let w2;
@@ -234,6 +238,7 @@
 
         window.devicePixelRatio = 2;
         console.log('dpr', window.devicePixelRatio);
+        console.log('modifier', modifier);
 
         interval = await setInterval(() => {
             if (countdown >= 0 && (pauseInit - pause) % 1000 == 0) {
