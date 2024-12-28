@@ -22,7 +22,8 @@
         }
 
         .line {
-            font-size:72pt;
+            font-family: "Segoe UI", sans-serif;
+            font-size:96px;
             font-weight:bold;
             color:transparent;
             background-clip:text!important;
@@ -227,7 +228,7 @@
         let secondLine = false;
 
         if (navigator.userAgent.match(/X\d{1,2}/) || navigator.userAgent.match(/Android/)) {
-
+            linesElem.style = 'letter-spacing: 2px';
         }
 
         let w1;
