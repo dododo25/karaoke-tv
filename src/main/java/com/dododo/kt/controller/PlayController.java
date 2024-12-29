@@ -31,6 +31,10 @@ public class PlayController {
                 .map(Integer.class::cast)
                 .orElse(null);
 
+        connected = true;
+        gameMode = GameMode.KARAOKE;
+        trackId = 7;
+
         if (!connected || gameMode == null || trackId == null) {
             return "redirect:/select";
         }
@@ -40,6 +44,7 @@ public class PlayController {
         session.setAttribute("answers", null);
         session.setAttribute("refreshed", false);
         session.setAttribute("refreshType", null);
+        session.setAttribute("deviceType", "pc");
 
         TrackGameMode mode = track.getModes().get(gameMode);
 
