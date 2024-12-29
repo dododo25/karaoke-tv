@@ -39,9 +39,13 @@ public class PlayController {
         session.setAttribute("answers", null);
         session.setAttribute("refreshed", false);
         session.setAttribute("refreshType", null);
+        session.setAttribute("deviceType", "pc");
 
         model.addAttribute("label", String.format("\"%s - %s\" is now playing", track.getArtist(), track.getName()));
-        model.addAttribute("data", track.getModes().get(gameMode));
+        model.addAttribute("src", track.getModes().get(gameMode).getSrc());
+        model.addAttribute("text", track.getModes().get(gameMode).getText());
+        model.addAttribute("rawCommands", track.getModes().get(gameMode).getCommands()
+                .get(session.getAttribute("deviceType")));
 
         return "play";
     }

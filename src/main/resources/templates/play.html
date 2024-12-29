@@ -78,7 +78,7 @@
 </head>
 <body class="d-flex flex-column justify-content-center align-items-center">
 <audio id="audio">
-    <source th:src="${data.src}" type="audio/mpeg">
+    <source th:src="${src}" type="audio/mpeg">
 </audio>
 <div id="background" class="position-absolute" style="width:100vw;height:100vh;z-index:0">
 </div>
@@ -105,7 +105,9 @@
 </div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-        const data = /*[[${data}]]*/ undefined;
+        const src         = /*[[${src}]]*/ undefined;
+        const text        = /*[[${text}]]*/ undefined;
+        const rawCommands = /*[[${rawCommands}]]*/ undefined;
     /*]]>*/
 </script>
 <script>
@@ -117,11 +119,9 @@
     const audioElem      = document.getElementById('audio');
     const playElem       = document.getElementById('play');
 
-    const text = data.text;
-
     const commands = [];
 
-    for (let c of data.commands) {
+    for (let c of rawCommands) {
         const m1 = c.match(/\{(\d+);(\d+(\.\d+)?)\}speed=(\d+(\.\d+)?)/);
         const m2 = c.match(/\{(\d+);(\d+(\.\d+)?)\}pause=(\d+(\.\d+)?)/);
         const m3 = c.match(/\{(\d+);(\d+(\.\d+)?)\}countdown=(\d+(\.\d+)?)/);
@@ -203,8 +203,6 @@
 
     newElem1.appendChild(newElem2);;
     backgroundElem.appendChild(newElem1);
-
-    console.log('dpr', window.devicePixelRatio);
 
     playElem.addEventListener('click', async () => {
         playElem.className = 'collapse';

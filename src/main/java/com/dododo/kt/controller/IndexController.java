@@ -2,8 +2,11 @@ package com.dododo.kt.controller;
 
 import com.dododo.kt.holder.SessionsHolder;
 import com.dododo.kt.holder.TokensHolder;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,12 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
 @AllArgsConstructor
 public class IndexController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     private static final Random RANDOM = new Random();
 
@@ -27,7 +33,7 @@ public class IndexController {
     private final TokensHolder tokensHolder;
 
     @GetMapping("/")
-    public String page(Model model, HttpSession session) {
+    public String page(Model model, HttpServletRequest request, HttpSession session) {
         String code  = generateCode();
         String token = tokensHolder.generateAndSave(code);
 
@@ -39,6 +45,14 @@ public class IndexController {
         session.setAttribute("answers", null);
         session.setAttribute("refreshed", false);
         session.setAttribute("refreshType", null);
+
+        if (Pattern.matches("X\\d{1,2}|Android", String.valueOf(request.getAttribute("User-Agent")))) {
+            session.setAttribute("deviceType", "android");
+        } else {
+            session.setAttribute("deviceType", "pc");
+        }
+
+        LOGGER.info(String.valueOf(session.getAttribute("deviceType")));
 
         sessionsHolder.add(token, session);
 

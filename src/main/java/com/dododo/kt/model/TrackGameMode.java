@@ -3,6 +3,7 @@ package com.dododo.kt.model;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class TrackGameMode {
@@ -11,7 +12,7 @@ public class TrackGameMode {
 
     private List<String> text;
 
-    private List<String> commands;
+    private Map<String, List<String>> commands;
 
     private List<String> options;
 
