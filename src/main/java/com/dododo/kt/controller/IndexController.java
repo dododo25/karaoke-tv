@@ -52,6 +52,7 @@ public class IndexController {
             session.setAttribute("deviceType", "pc");
         }
 
+        LOGGER.info("user-agent --- " + request.getAttribute("User-Agent"));
         LOGGER.info(String.valueOf(session.getAttribute("deviceType")));
 
         sessionsHolder.add(token, session);
