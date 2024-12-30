@@ -46,15 +46,6 @@ public class IndexController {
         session.setAttribute("refreshed", false);
         session.setAttribute("refreshType", null);
 
-        if (Pattern.matches("X\\d{1,2}|Android", String.valueOf(request.getAttribute("User-Agent")))) {
-            session.setAttribute("deviceType", "android");
-        } else {
-            session.setAttribute("deviceType", "pc");
-        }
-
-        LOGGER.info("user-agent --- " + request.getAttribute("User-Agent"));
-        LOGGER.info(String.valueOf(session.getAttribute("deviceType")));
-
         sessionsHolder.add(token, session);
 
         model.addAttribute("code", IntStream.range(0, code.length() / 2)
