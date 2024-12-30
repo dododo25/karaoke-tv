@@ -11,6 +11,7 @@
             width:100vw;
             height:100vh;
             overflow:hidden;
+            font-smooth:never;
         }
 
         #lines {
@@ -23,16 +24,15 @@
 
         .line {
             font-size:96px;
-            font-weight:bold;
+            font-weight:700;
             color:transparent;
             background-clip:text!important;
-            z-index:2;
             padding:4px;
         }
 
         #countdown {
             font-size:28em;
-            font-weight:bold;
+            font-weight:700;
             color:#FAFAFA;
         }
 
@@ -94,10 +94,10 @@
             <div class="position-absolute" style="width:100vw;height:70vh;z-index:1;background-color: #2121213F;"></div>
             <div id="lines-main" class="w-100 p-3">
                 <p class="text-center">
-                    <span id="first-line" class="line position-relative"></span>
+                    <span id="first-line" class="line"></span>
                 </p>
                 <p class="text-center">
-                    <span id="second-line" class="line position-relative"></span>
+                    <span id="second-line" class="line"></span>
                 </p>
             </div>
         </div>
