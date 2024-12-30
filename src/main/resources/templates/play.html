@@ -113,7 +113,6 @@
 <script>
     const backgroundElem = document.getElementById('background');
     const linesElem      = document.getElementById('lines');
-    const linesMainElem  = document.getElementById('lines-main');
     const countdownElem  = document.getElementById('countdown');
     const firstLineElem  = document.getElementById('first-line');
     const secondLineElem = document.getElementById('second-line');
@@ -121,11 +120,6 @@
     const playElem       = document.getElementById('play');
 
     const commands = [];
-
-    if (window.devicePixelRatio % 1 !== 0) {
-        linesMainElem.style.transform = 'scale(' + (window.devicePixelRatio % 1) + ')';
-        linesMainElem.style.transformOrigin = 'center';
-    }
 
     for (let c of rawCommands) {
         const m1 = c.match(/\{(\d+);(\d+(\.\d+)?)\}speed=(\d+(\.\d+)?)/);
